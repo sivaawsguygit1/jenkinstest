@@ -1,14 +1,22 @@
-// Test
+
 pipeline {
-    agent none 
+    agent any
+    /*environment {
+        version = "1.0"
+    }*/
     stages {
-        stage ("Build"){
-            agent any
-            options {
-                skipDefaultCheckout()
+        stage('Example Build') {
+            steps {
+                echo 'Hello World'
+            }
+        }
+        stage('Example Deploy') {
+            when {
+                expression { BRANCH_NAME ==~ /(production|staging)/ }
+                // version == "1.0"
             }
             steps {
-                echo "Welcome to JPAC option Default checkut"
+                echo 'Deploying'
             }
         }
     }
