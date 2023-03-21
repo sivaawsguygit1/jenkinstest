@@ -12,7 +12,7 @@ pipeline {
         }
         stage('Example Deploy') {
             when {
-                expression { BRANCH_NAME ==~ /(production|staging)/ }
+                expression { BRANCH_NAME ==~ /(production|staging|main)/ }
                 // version == "1.0"
             }
             steps {
