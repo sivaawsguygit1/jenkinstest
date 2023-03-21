@@ -12,7 +12,7 @@ pipeline {
         stage('Example Deploy') {
             when {
                 allOf {
-                    branch 'production'
+                    branch 'production|main'
                     environment name: 'DEPLOY_TO', value: 'production'
                 }
             }
