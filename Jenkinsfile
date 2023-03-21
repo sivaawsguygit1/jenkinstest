@@ -1,9 +1,8 @@
-
 pipeline {
     agent any
-    /*environment {
-        version = "1.0"
-    }*/
+    environment {
+        DEPLOY_TO = 'production'
+    }
     stages {
         stage('Example Build') {
             steps {
@@ -12,8 +11,10 @@ pipeline {
         }
         stage('Example Deploy') {
             when {
-                expression { BRANCH_NAME ==~ /(production|staging|main)/ }
-                // version == "1.0"
+                allOf {
+                    branch 'production'
+                    environment name: 'DEPLOY_TO', value: 'production'
+                }
             }
             steps {
                 echo 'Deploying'
