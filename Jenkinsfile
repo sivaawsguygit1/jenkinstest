@@ -1,26 +1,14 @@
-// anyOf
 pipeline {
     agent any
-    environment {
-        DEPLOY_TO = 'productions' //changed here 
-        // BRANCH_NAME = env.BRANCH_NAME
-    }
     stages {
-        stage('Example Build') {
-            steps {
-                echo 'Hello World'
-            }
-        }
         stage('Example Deploy') {
             when {
-                anyOf {
-                    expression { BRANCH_NAME ==~ /(production|staging)/ }
-                    //branch 'production'
-                    environment name: 'DEPLOY_TO', value: 'production'
-                }
+                buildingTag()
+                // tag "release-*"
+                //tag pattern: "v\\d{1,2}\\.\\d{1,2}\\.\\d{1,2}", comparator: "REGEXP" //v1.2.3
             }
             steps {
-                echo 'Deploying'
+                echo 'Building a tag'
             }
         }
     }
