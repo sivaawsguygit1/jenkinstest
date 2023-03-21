@@ -3,12 +3,13 @@ pipeline {
     stages {
         stage('Example Deploy') {
             when {
-                buildingTag()
+                //buildingTag()
+                branch 'release/*'
                 // tag "release-*"
                 //tag pattern: "v\\d{1,2}\\.\\d{1,2}\\.\\d{1,2}", comparator: "REGEXP" //v1.2.3
             }
             steps {
-                echo 'Building a tag'
+                echo 'Building a release bracnch'
             }
         }
     }
